@@ -1,10 +1,14 @@
 package com.vivek.WebApp.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
 @Component
 //@Data
+@Entity
 public class Product {
+    @Id
     private int id;
     private String name;
     private int price;
