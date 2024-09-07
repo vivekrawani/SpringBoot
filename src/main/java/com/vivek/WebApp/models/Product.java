@@ -1,57 +1,39 @@
 package com.vivek.WebApp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
-//@Data
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Product {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private BigInteger id;
+    @Column(nullable = false)
     private String name;
-    private int price;
-    public Product(){
+    private String info;
+    private String brand;
+    private BigDecimal price;
+    private String category;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
 
-    }
-
-    public Product(int id, String name, int price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+    private Date releaseDate;
+    private boolean isInStock;
+    private int stock;
+    @PrePersist
+    public void prePersist(){
+        if(this.releaseDate == null){
+            this.releaseDate = new Date();
+        }
     }
 }
